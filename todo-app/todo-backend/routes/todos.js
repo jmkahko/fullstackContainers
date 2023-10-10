@@ -8,6 +8,21 @@ router.get('/', async (_, res) => {
   res.send(todos);
 });
 
+router.get('/:id', async (req, res) => {
+  const todos = await Todo.findById(req.params.id)
+  res.send(todos);
+});
+
+router.put('/:id', async (req, res) => {
+  const updateTodo = {
+    text: req.body.text,
+    done: req.body.done
+  }
+
+  await Todo.findByIdAndUpdate(req.params.id, updateTodo, { new : true })
+  res.status(201).json(updateTodo)
+});
+
 /* POST todo to listing. */
 router.post('/', async (req, res) => {
   const todo = await Todo.create({
