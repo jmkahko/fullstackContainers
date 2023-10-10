@@ -1,0 +1,40 @@
+% docker exec -it todo-backend-mongo-1 mongosh -u "root" -p "example"
+
+test> use the_database
+
+the_database> show collections
+
+the_database> db.todos.find({})
+[
+  {
+    _id: ObjectId("65258405239ca551add87a0d"),
+    text: 'Write code Update2',
+    done: true
+  },
+  {
+    _id: ObjectId("65258405239ca551add87a0e"),
+    text: 'Learn about containers',
+    done: false
+  }
+]
+
+the_database> db.todos.insertOne( { text: 'One added', done: true } );
+
+the_database> db.todos.find({})
+[
+  {
+    _id: ObjectId("65258405239ca551add87a0d"),
+    text: 'Write code Update2',
+    done: true
+  },
+  {
+    _id: ObjectId("65258405239ca551add87a0e"),
+    text: 'Learn about containers',
+    done: false
+  },
+  {
+    _id: ObjectId("65258cc496f9573eb1d28596"),
+    text: 'One added',
+    done: true
+  }
+]
