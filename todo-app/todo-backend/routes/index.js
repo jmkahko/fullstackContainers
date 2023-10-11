@@ -16,4 +16,10 @@ router.get('/', async (req, res) => {
   });
 });
 
+router.get('/statistics', async (req, res) => {
+  redis.getAsync('key').then((data) => {
+    res.send(data)
+  });
+});
+
 module.exports = router;
