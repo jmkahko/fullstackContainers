@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
 
 router.get('/statistics', async (req, res) => {
   redis.getAsync('key').then((data) => {
-    res.send(data)
+    res.send({'added_todos': parseInt(data, 10)});
   });
 });
 

@@ -28,10 +28,15 @@ router.put('/:id', async (req, res) => {
 
 /* POST todo to listing. */
 router.post('/', async (req, res) => {
-  added_todos++
-  await redis.setAsync('key', JSON.stringify({
-    'added_todos': added_todos
-  }));
+  redis.getAsync('key').then((data) => {
+    let todosNro;
+    if (parseInt(data, 10) > 0) {
+        todosNro = parseInt(data, 10) + 1;
+    } else {
+      todosNro = 1;
+    }
+    redis.setAsync('key', todosNro);
+  });
 
   const todo = await Todo.create({
     text: req.body.text,
