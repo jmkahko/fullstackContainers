@@ -1,0 +1,61 @@
+<!-- Sivuston navbar ja linkit. -->
+
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark sticky-top">
+  <a class="navbar-brand" href="#">
+    <img
+      src="../../assets/saajuna-logo2.png"
+      width="50"
+      height="50"
+      class="d-inline-block align-text-center"
+  /></a>
+
+  <!-- Toggler/collapsibe Button -->
+  <button
+    class="navbar-toggler"
+    type="button"
+    (click)="toggleNavbar()"
+    data-toggle="collapse"
+    data-target="#collapsibleNavbar"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Navbar links -->
+  <div
+    class="collapse navbar-collapse"
+    id="collapsibleNavbar"
+    [ngClass]="{ show: navbarOpen }"
+  >
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="etusivu">Etusivu</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="junaasemat">Juna-asemat</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="havaintoasemat">Säätiedot</a>
+      </li>
+      <li class="navbar-item">
+        <a class="nav-link" routerLink="info">Info</a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav ms-auto" id="collapsibleNavbar">
+      <li *ngIf="!login" class="nav-item navbar-right">
+        <a class="nav-link" routerLink="rekisteroidy">Rekisteröidy</a>
+      </li>
+      <li *ngIf="!login" class="nav-item navbar-right">
+        <a class="nav-link" routerLink="kirjaudu">Kirjaudu</a>
+      </li>
+      <li *ngIf="login" class="nav-item navbar-right">
+        <a class="nav-link" routerLink="omattiedot">Omat tiedot</a>
+      </li>
+      <li *ngIf="login" class="nav-item navbar-right">
+        <a class="nav-link" routerLink="kirjaudu" (click)="doLogout()"
+          >Kirjaudu ulos</a
+        >
+      </li>
+    </ul>
+  </div>
+</nav>

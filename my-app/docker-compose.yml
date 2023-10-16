@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  app:
+    image: my-app-frontend
+    build:
+      context: .
+      dockerfile: ./frontend/Dockerfile
+    volumes:
+      - ./frontend/:/usr/src/app
+    ports:
+      - 8080:80
+    container_name: my-app-frontend
+
+  server:
+    image: my-app-backend
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile
+    volumes:
+      - ./backend/:/usr/src/app
+    ports:
+      - 3000:3000
+    environment:
+      - MONGODB_URL=mongodb://the_username:the_password@my-app-mongo:27017/saajuna
+      - SECRET=salainensalasana
+      - FRONTEND_URL=http://localhost:8080
+    depends_on:
+      - mongo
+    container_name: my-app-backend
+
+  mongo:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: saajuna
+    volumes:
+      - ./backend/mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+      - mongo_data:/data/db
+    ports:
+      - 27017:27017
+    container_name: my-app-mongo
+
+volumes:
+  mongo_data:
